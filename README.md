@@ -18,6 +18,15 @@ Setup
 4. Place your audio/video podcast files and cover art image files in the `public` directory. You can have sub-directories for each type of media or for each podcast.
 5. Start the server: `npm start`.
 
+Dockerize
+---------
+
+To run this application within a docker container:
+
+1. Build the docker image: `docker build -t Podcaster .`
+2. Run a docker container: `docker run --name Podcaster --restart always -v "$PWD":/opt/app -d Podcaster`
+3. Restart the docker container if you make changes to the configuration directory later: `docker restart Podcaster`
+
 Important
 ---------
 
