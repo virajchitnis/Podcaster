@@ -9,6 +9,12 @@ Intro
 My brother recently started podcasting, and in order to help publish his podcasts, I created a nodejs application that runs on my server.
 I have decided to create an open source version of this application and release it here. 
 
+Endpoints
+---------
+
+- `/health` - Simply returns a `200 OK` response with a `Up!` message as the body. This can be used by frontend web servers such as Haproxy to check whether this server is running.
+- `/{podcast_name}/feed.xml` - This is the feed for a configured podcast. This is what will be used by podcasting applications, or by Apple, Spotify, etc.
+
 Setup
 -----
 
