@@ -1,5 +1,4 @@
 #!/bin/sh
 
-mkdir ./config
-echo "{}" > ./config/server.json
+cp -r ./example_config ./config
 mkdir ./public

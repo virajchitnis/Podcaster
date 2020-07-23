@@ -40,6 +40,8 @@ podcasts_dirs.forEach((dir) => {
 
 // Build endpoints for each podcast
 podcasts.forEach((show) => {
+    show.info.itunesImage = `${server_conf.websiteRoot}${show.info.itunesImage}`;
+    show.info.image_url = `${server_conf.websiteRoot}${show.info.image_url}`;
     var feed = new podcast(show.info);
     show.episodes.forEach((episode) => {
         episode.enclosure.url = `${server_conf.websiteRoot}${episode.enclosure.url}`;
