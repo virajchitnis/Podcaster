@@ -30,3 +30,8 @@ Contributing
 ------------
 
 If you want to suggest a change or fix something, feel free to send me a pull request.
+
+License
+-------
+
+This project is licensed under the GNU GPLv3 license.
