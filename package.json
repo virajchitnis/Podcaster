@@ -1,0 +1,25 @@
+{
+  "name": "podcaster",
+  "version": "1.0.0",
+  "description": "Server for hosting podcast feeds",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virajchitnis/Podcaster.git"
+  },
+  "keywords": [
+    "podcast",
+    "xml",
+    "rss",
+    "feed"
+  ],
+  "author": "Viraj Chitnis",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/virajchitnis/Podcaster/issues"
+  },
+  "homepage": "https://github.com/virajchitnis/Podcaster#readme"
+}
