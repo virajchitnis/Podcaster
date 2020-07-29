@@ -72,6 +72,16 @@ func buildPodcastList() {
 	newPodcast.setImageURL("https://domain.com/image")
 	newPodcast.setLink("https://twitter.com/blah")
 	newPodcast.ItunesOwner.ItunesEmail = "blah@domain.com"
+	newPodcast.addCategory(Category{
+		Text: "History",
+	})
+	newsCategory := Category{
+		Text: "News",
+	}
+	newsCategory.addCategory(Category{
+		Text: "Politics",
+	})
+	newPodcast.addCategory(newsCategory)
 
 	newEpisode := Episode{
 		Title:             "Episode 1",

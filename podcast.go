@@ -17,19 +17,19 @@ type Podcast struct {
 	ItunesImage struct {
 		Href string `xml:"href,attr"`
 	} `xml:"itunes:image"`
-	Generator      string `xml:"generator,omitempty"`
-	LastBuildDate  string `xml:"lastBuildDate"`
-	Author         string `xml:"author"`
-	ItunesAuthor   string `xml:"itunes:author"`
-	Copyright      string `xml:"copyright"`
-	Language       string `xml:"language"`
-	ManagingEditor string `xml:"managingEditor,omitempty"`
-	WebMaster      string `xml:"webMaster,omitempty"`
-	Category       string `xml:"category"`
-	ItunesCategory []Category
-	ItunesSummary  string   `xml:"itunes:summary"`
-	ItunesType     ShowType `xml:"itunes:type"`
-	ItunesOwner    struct {
+	Generator        string `xml:"generator,omitempty"`
+	LastBuildDate    string `xml:"lastBuildDate"`
+	Author           string `xml:"author"`
+	ItunesAuthor     string `xml:"itunes:author"`
+	Copyright        string `xml:"copyright"`
+	Language         string `xml:"language"`
+	ManagingEditor   string `xml:"managingEditor,omitempty"`
+	WebMaster        string `xml:"webMaster,omitempty"`
+	Category         string `xml:"category"`
+	ItunesCategories []Category
+	ItunesSummary    string   `xml:"itunes:summary"`
+	ItunesType       ShowType `xml:"itunes:type"`
+	ItunesOwner      struct {
 		ItunesName  string `xml:"itunes:name"`
 		ItunesEmail string `xml:"itunes:email"`
 	} `xml:"itunes:owner"`
@@ -61,6 +61,10 @@ func (p *Podcast) setAuthor(author string) {
 	p.Author = author
 	p.ItunesAuthor = author
 	p.ItunesOwner.ItunesName = author
+}
+
+func (p *Podcast) addCategory(cat Category) {
+	p.ItunesCategories = append(p.ItunesCategories, cat)
 }
 
 func (p *Podcast) addEpisode(episode Episode) {
