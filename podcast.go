@@ -7,8 +7,9 @@ type Podcast struct {
 	XMLName     xml.Name `xml:"channel"`
 	shortName   string
 	Title       string `xml:"title"`
+	ItunesTitle string `xml:"itunes:title,omitempty"`
 	Description string `xml:"description"`
-	Link        string `xml:"link"`
+	Link        string `xml:"link,omitempty"`
 	Image       struct {
 		XMLName xml.Name `xml:"image"`
 		URL     string   `xml:"url"`
@@ -22,27 +23,31 @@ type Podcast struct {
 	Generator        string `xml:"generator,omitempty"`
 	LastBuildDate    string `xml:"lastBuildDate"`
 	Author           string `xml:"author"`
-	ItunesAuthor     string `xml:"itunes:author"`
-	Copyright        string `xml:"copyright"`
+	ItunesAuthor     string `xml:"itunes:author,omitempty"`
+	Copyright        string `xml:"copyright,omitempty"`
 	Language         string `xml:"language"`
 	ManagingEditor   string `xml:"managingEditor,omitempty"`
 	WebMaster        string `xml:"webMaster,omitempty"`
 	Category         string `xml:"category"`
 	ItunesCategories []Category
 	ItunesSummary    string   `xml:"itunes:summary"`
-	ItunesType       ShowType `xml:"itunes:type"`
+	ItunesType       ShowType `xml:"itunes:type,omitempty"`
 	ItunesOwner      struct {
 		XMLName     xml.Name `xml:"itunes:owner"`
 		ItunesName  string   `xml:"itunes:name"`
 		ItunesEmail string   `xml:"itunes:email"`
 	}
-	ItunesExplicit YesNoType `xml:"itunes:explicit"`
-	Items          []Episode
+	ItunesExplicit   YesNoType `xml:"itunes:explicit"`
+	Items            []Episode
+	ItunesNewFeedURL string    `xml:"itunes:new-feed-url,omitempty"`
+	ItunesBlock      YesNoType `xml:"itunes:block,omitempty"`
+	ItunesComplete   YesNoType `xml:"itunes:complete,omitempty"`
 }
 
 func (p *Podcast) setTitle(title string) {
 	p.Title = title
 	p.Image.Title = title
+	p.ItunesTitle = title
 }
 
 func (p *Podcast) setDescription(desc string) {
