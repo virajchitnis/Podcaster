@@ -62,3 +62,7 @@ func (p *Podcast) setAuthor(author string) {
 	p.ItunesAuthor = author
 	p.ItunesOwner.ItunesName = author
 }
+
+func (p *Podcast) addEpisode(episode Episode) {
+	p.Items = append(p.Items, episode)
+}

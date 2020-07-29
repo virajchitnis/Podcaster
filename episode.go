@@ -10,15 +10,20 @@ type Episode struct {
 	GUID        string   `xml:"guid"`
 	Creator     string   `xml:"dc:creator"`
 	Enclosure   struct {
-		URL  string `xml:"url,attr"`
-		Size int    `xml:"length,attr"`
-		Type string `xml:"type,attr"`
+		URL  string   `xml:"url,attr"`
+		Size int      `xml:"length,attr"`
+		Type FileType `xml:"type,attr"`
 	} `xml:"enclosure"`
 	Date              string      `xml:"pubDate"`
 	ItunesSummary     string      `xml:"itunes:summary"`
 	ItunesExplicit    YesNoType   `xml:"itunes:explicit"`
-	ItunesDuration    string      `xml:"itunes:duration"`
-	ItunesSeason      int         `xml:"itunes:season"`
-	ItunesEpisode     int         `xml:"itunes:episode"`
+	ItunesDuration    int         `xml:"itunes:duration"`
+	ItunesSeason      int         `xml:"itunes:season,omitempty"`
+	ItunesEpisode     int         `xml:"itunes:episode,omitempty"`
 	ItunesEpisodeType EpisodeType `xml:"itunes:episodeType"`
+}
+
+func (e *Episode) setDescription(desc string) {
+	e.Description = desc
+	e.ItunesSummary = desc
 }

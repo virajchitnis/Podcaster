@@ -56,6 +56,7 @@ func main() {
 
 func buildPodcastList() {
 	currTime := time.Now()
+
 	newPodcast := Podcast{
 		shortName:      "test",
 		Copyright:      "© 2020 The Author. All Rights Reserved.",
@@ -71,5 +72,20 @@ func buildPodcastList() {
 	newPodcast.setImageURL("https://domain.com/image")
 	newPodcast.setLink("https://twitter.com/blah")
 	newPodcast.ItunesOwner.ItunesEmail = "blah@domain.com"
+
+	newEpisode := Episode{
+		Title:             "Episode 1",
+		GUID:              "hafuhgiahuha4r45",
+		Creator:           "The Author & The Second Author",
+		Date:              currTime.Format(time.RFC1123),
+		ItunesExplicit:    No,
+		ItunesEpisodeType: Full,
+		ItunesDuration:    3256,
+	}
+	newEpisode.setDescription("This is the first episode test.")
+	newEpisode.Enclosure.URL = "https://www.domain.com/somefile.mp3"
+	newEpisode.Enclosure.Size = 554543
+	newEpisode.Enclosure.Type = MPEG
+	newPodcast.addEpisode(newEpisode)
 	podcasts = append(podcasts, newPodcast)
 }
