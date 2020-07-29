@@ -55,10 +55,11 @@ func main() {
 
 func buildPodcastList() {
 	newPodcast := Podcast{
-		shortName:   "test",
-		Title:       "TEST",
-		Description: "This is a test podcast.",
+		shortName: "test",
+		Title:     "TEST",
 	}
-	newPodcast.setImageURL("blah")
+	newPodcast.setDescription("This is a test podcast")
+	newPodcast.setImageURL("https://domain.com/image")
+	newPodcast.setLink("https://twitter.com/blah")
 	podcasts = append(podcasts, newPodcast)
 }

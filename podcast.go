@@ -14,7 +14,9 @@ type Podcast struct {
 		Title string `xml:"title"`
 		Link  string `xml:"link"`
 	} `xml:"image"`
-	ItunesImage    string `xml:"itunes:image"`
+	ItunesImage struct {
+		Href string `xml:"href,attr"`
+	} `xml:"itunes:image"`
 	Generator      string `xml:"generator"`
 	LastBuildDate  string `xml:"lastBuildDate"`
 	Author         string `xml:"author"`
@@ -47,7 +49,7 @@ func (p *Podcast) setLink(link string) {
 
 func (p *Podcast) setImageURL(URL string) {
 	p.Image.URL = URL
-	p.ItunesImage = URL
+	p.ItunesImage.Href = URL
 }
 
 func (p *Podcast) setAuthor(author string) {
