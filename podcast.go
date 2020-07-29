@@ -27,14 +27,19 @@ type Podcast struct {
 	WebMaster      string `xml:"webMaster,omitempty"`
 	Category       string `xml:"category"`
 	ItunesCategory []Category
-	ItunesSummary  string `xml:"itunes:summary"`
-	ItunesType     string `xml:"itunes:type"`
+	ItunesSummary  string   `xml:"itunes:summary"`
+	ItunesType     ShowType `xml:"itunes:type"`
 	ItunesOwner    struct {
 		ItunesName  string `xml:"itunes:name"`
 		ItunesEmail string `xml:"itunes:email"`
 	} `xml:"itunes:owner"`
-	ItunesExplicit bool `xml:"itunes:explicit"`
+	ItunesExplicit YesNoType `xml:"itunes:explicit"`
 	Items          []Episode
+}
+
+func (p *Podcast) setTitle(title string) {
+	p.Title = title
+	p.Image.Title = title
 }
 
 func (p *Podcast) setDescription(desc string) {

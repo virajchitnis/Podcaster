@@ -14,11 +14,11 @@ type Episode struct {
 		Size int    `xml:"length,attr"`
 		Type string `xml:"type,attr"`
 	} `xml:"enclosure"`
-	Date              string `xml:"pubDate"`
-	ItunesSummary     string `xml:"itunes:summary"`
-	ItunesExplicit    bool   `xml:"itunes:explicit"`
-	ItunesDuration    string `xml:"itunes:duration"`
-	ItunesSeason      int    `xml:"itunes:season"`
-	ItunesEpisode     int    `xml:"itunes:episode"`
-	ItunesEpisodeType string `xml:"itunes:episodeType"`
+	Date              string      `xml:"pubDate"`
+	ItunesSummary     string      `xml:"itunes:summary"`
+	ItunesExplicit    YesNoType   `xml:"itunes:explicit"`
+	ItunesDuration    string      `xml:"itunes:duration"`
+	ItunesSeason      int         `xml:"itunes:season"`
+	ItunesEpisode     int         `xml:"itunes:episode"`
+	ItunesEpisodeType EpisodeType `xml:"itunes:episodeType"`
 }

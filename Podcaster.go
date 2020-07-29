@@ -55,11 +55,18 @@ func main() {
 
 func buildPodcastList() {
 	newPodcast := Podcast{
-		shortName: "test",
-		Title:     "TEST",
+		shortName:      "test",
+		Copyright:      "© 2020 The Author. All Rights Reserved.",
+		Language:       "en",
+		Category:       "History",
+		ItunesType:     Episodic,
+		ItunesExplicit: No,
 	}
+	newPodcast.setTitle("TEST")
 	newPodcast.setDescription("This is a test podcast")
+	newPodcast.setAuthor("The Author & The Second Author")
 	newPodcast.setImageURL("https://domain.com/image")
 	newPodcast.setLink("https://twitter.com/blah")
+	newPodcast.ItunesOwner.ItunesEmail = "blah@domain.com"
 	podcasts = append(podcasts, newPodcast)
 }
