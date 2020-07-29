@@ -17,14 +17,14 @@ type Podcast struct {
 	ItunesImage struct {
 		Href string `xml:"href,attr"`
 	} `xml:"itunes:image"`
-	Generator      string `xml:"generator"`
+	Generator      string `xml:"generator,omitempty"`
 	LastBuildDate  string `xml:"lastBuildDate"`
 	Author         string `xml:"author"`
 	ItunesAuthor   string `xml:"itunes:author"`
 	Copyright      string `xml:"copyright"`
 	Language       string `xml:"language"`
-	ManagingEditor string `xml:"managingEditor"`
-	WebMaster      string `xml:"webMaster"`
+	ManagingEditor string `xml:"managingEditor,omitempty"`
+	WebMaster      string `xml:"webMaster,omitempty"`
 	Category       string `xml:"category"`
 	ItunesCategory []Category
 	ItunesSummary  string `xml:"itunes:summary"`
