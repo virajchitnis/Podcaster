@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,6 +55,7 @@ func main() {
 }
 
 func buildPodcastList() {
+	currTime := time.Now()
 	newPodcast := Podcast{
 		shortName:      "test",
 		Copyright:      "© 2020 The Author. All Rights Reserved.",
@@ -61,6 +63,7 @@ func buildPodcastList() {
 		Category:       "History",
 		ItunesType:     Episodic,
 		ItunesExplicit: No,
+		LastBuildDate:  currTime.Format(time.RFC1123),
 	}
 	newPodcast.setTitle("TEST")
 	newPodcast.setDescription("This is a test podcast")
