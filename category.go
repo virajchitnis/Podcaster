@@ -1,7 +1,10 @@
 package main
 
+import "encoding/xml"
+
 // Category type for storing podcast categories
 type Category struct {
-	Text           string     `xml:"text,attr"`
-	ItunesCategory []Category `xml:"itunes:category"`
+	XMLName        xml.Name `xml:"itunes:category"`
+	Text           string   `xml:"text,attr"`
+	ItunesCategory []Category
 }

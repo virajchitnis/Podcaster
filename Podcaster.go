@@ -36,7 +36,7 @@ func main() {
 			ContentNS   string   `xml:"xmlns:content,attr"`
 			AtomNS      string   `xml:"xmlns:atom,attr"`
 			Version     string   `xml:"version,attr"`
-			PodcastData Podcast  `xml:"channel"`
+			PodcastData Podcast
 		}
 		r.GET("/"+podcast.shortName, func(c *gin.Context) {
 			c.XML(http.StatusOK, XMLRoot{
