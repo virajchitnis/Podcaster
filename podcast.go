@@ -16,10 +16,7 @@ type Podcast struct {
 		Title   string   `xml:"title"`
 		Link    string   `xml:"link"`
 	}
-	ItunesImage struct {
-		XMLName xml.Name `xml:"itunes:image"`
-		Href    string   `xml:"href,attr"`
-	}
+	ItunesImage      ItunesImage
 	Generator        string `xml:"generator,omitempty"`
 	LastBuildDate    string `xml:"lastBuildDate"`
 	Author           string `xml:"author"`

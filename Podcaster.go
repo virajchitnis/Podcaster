@@ -84,7 +84,6 @@ func buildPodcastList() {
 	newPodcast.addCategory(newsCategory)
 
 	newEpisode := Episode{
-		Title:             "Episode 1",
 		GUID:              "hafuhgiahuha4r45",
 		Creator:           "The Author & The Second Author",
 		Date:              currTime.Format(time.RFC1123),
@@ -92,6 +91,7 @@ func buildPodcastList() {
 		ItunesEpisodeType: Full,
 		ItunesDuration:    3256,
 	}
+	newEpisode.setTitle("Episode 1")
 	newEpisode.setDescription("This is the first episode test.")
 	newEpisode.Enclosure.URL = "https://www.domain.com/somefile.mp3"
 	newEpisode.Enclosure.Size = 554543
