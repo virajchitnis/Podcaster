@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
 	"net/http"
 	"time"
@@ -16,11 +17,22 @@ const (
 	Header = `<?xml version="1.0" encoding="UTF-8"?>` + "\n"
 )
 
+var debug = flag.Bool("debug", false, "Enable debug mode")
+
 var podcasts []Podcast
 
 func main() {
-	fmt.Println("Welcome to Podcaster!")
+	flag.Parse()
+
+	fmt.Println("")
+	fmt.Println("Welcome to Podcaster")
+	fmt.Println("")
+
+	if *debug != true {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	r := gin.Default()
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Welcome to Podcaster!",
