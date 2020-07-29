@@ -10,13 +10,15 @@ type Podcast struct {
 	Description string `xml:"description"`
 	Link        string `xml:"link"`
 	Image       struct {
-		URL   string `xml:"url"`
-		Title string `xml:"title"`
-		Link  string `xml:"link"`
-	} `xml:"image"`
+		XMLName xml.Name `xml:"image"`
+		URL     string   `xml:"url"`
+		Title   string   `xml:"title"`
+		Link    string   `xml:"link"`
+	}
 	ItunesImage struct {
-		Href string `xml:"href,attr"`
-	} `xml:"itunes:image"`
+		XMLName xml.Name `xml:"itunes:image"`
+		Href    string   `xml:"href,attr"`
+	}
 	Generator        string `xml:"generator,omitempty"`
 	LastBuildDate    string `xml:"lastBuildDate"`
 	Author           string `xml:"author"`
@@ -30,9 +32,10 @@ type Podcast struct {
 	ItunesSummary    string   `xml:"itunes:summary"`
 	ItunesType       ShowType `xml:"itunes:type"`
 	ItunesOwner      struct {
-		ItunesName  string `xml:"itunes:name"`
-		ItunesEmail string `xml:"itunes:email"`
-	} `xml:"itunes:owner"`
+		XMLName     xml.Name `xml:"itunes:owner"`
+		ItunesName  string   `xml:"itunes:name"`
+		ItunesEmail string   `xml:"itunes:email"`
+	}
 	ItunesExplicit YesNoType `xml:"itunes:explicit"`
 	Items          []Episode
 }

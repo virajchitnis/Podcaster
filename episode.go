@@ -10,10 +10,11 @@ type Episode struct {
 	GUID        string   `xml:"guid"`
 	Creator     string   `xml:"dc:creator"`
 	Enclosure   struct {
-		URL  string   `xml:"url,attr"`
-		Size int      `xml:"length,attr"`
-		Type FileType `xml:"type,attr"`
-	} `xml:"enclosure"`
+		XMLName xml.Name `xml:"enclosure"`
+		URL     string   `xml:"url,attr"`
+		Size    int      `xml:"length,attr"`
+		Type    FileType `xml:"type,attr"`
+	}
 	Date              string      `xml:"pubDate"`
 	ItunesSummary     string      `xml:"itunes:summary"`
 	ItunesExplicit    YesNoType   `xml:"itunes:explicit"`
