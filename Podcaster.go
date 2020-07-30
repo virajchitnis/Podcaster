@@ -4,8 +4,10 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -78,7 +80,7 @@ func readPodcastFromFile(filename string) Podcast {
 	f, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Unable to read file!")
-		exitWithError()
+		log.Fatal(err)
 	}
 	defer f.Close()
 
@@ -87,8 +89,7 @@ func readPodcastFromFile(filename string) Podcast {
 	err = decoder.Decode(&podcastReader)
 	if err != nil {
 		fmt.Println("Invalid file format!")
-		fmt.Print(err)
-		exitWithError()
+		log.Fatal(err)
 	}
 	podcastReader.Podcast.Generator = "https://github.com/virajchitnis/Podcaster"
 	return podcastReader.Podcast
@@ -98,7 +99,7 @@ func readConfigFile(config string) Config {
 	f, err := os.Open(config)
 	if err != nil {
 		fmt.Println("Unable to read config file!")
-		exitWithError()
+		log.Fatal(err)
 	}
 	defer f.Close()
 
@@ -107,33 +108,46 @@ func readConfigFile(config string) Config {
 	err = decoder.Decode(&cfg)
 	if err != nil {
 		fmt.Println("Invalid config file format!")
-		exitWithError()
+		log.Fatal(err)
 	}
 	return cfg
-}
-
-func exitWithError() {
-	os.Exit(1)
 }
 
 func buildPodcastList() {
 	currTime := time.Now()
 
-	newPodcast := readPodcastFromFile("examples/var/podcaster/example_podcast.yaml")
-
-	newEpisode := Episode{
-		GUID:              "hafuhgiahuha4r45",
-		Creator:           "The Author & The Second Author",
-		Date:              currTime.Format(time.RFC1123),
-		ItunesExplicit:    No,
-		ItunesEpisodeType: Full,
-		ItunesDuration:    3256,
+	var podcastFiles []string
+	err := filepath.Walk("examples/var/podcaster/podcasts", func(path string, info os.FileInfo, err error) error {
+		if err == nil {
+			if !info.IsDir() {
+				if filepath.Ext(path) == ".yaml" || filepath.Ext(path) == ".yml" {
+					podcastFiles = append(podcastFiles, path)
+				}
+			}
+			return nil
+		}
+		return err
+	})
+	if err != nil {
+		log.Fatal(err)
 	}
-	newEpisode.setTitle("Episode 1")
-	newEpisode.setDescription("This is the first episode test.")
-	newEpisode.Enclosure.URL = "https://www.domain.com/somefile.mp3"
-	newEpisode.Enclosure.Size = 554543
-	newEpisode.Enclosure.Type = MPEG
-	newPodcast.addEpisode(newEpisode)
-	podcasts = append(podcasts, newPodcast)
+	for _, file := range podcastFiles {
+		newPodcast := readPodcastFromFile(file)
+
+		newEpisode := Episode{
+			GUID:              "hafuhgiahuha4r45",
+			Creator:           "The Author & The Second Author",
+			Date:              currTime.Format(time.RFC1123),
+			ItunesExplicit:    No,
+			ItunesEpisodeType: Full,
+			ItunesDuration:    3256,
+		}
+		newEpisode.setTitle("Episode 1")
+		newEpisode.setDescription("This is the first episode test.")
+		newEpisode.Enclosure.URL = "https://www.domain.com/somefile.mp3"
+		newEpisode.Enclosure.Size = 554543
+		newEpisode.Enclosure.Type = MPEG
+		newPodcast.addEpisode(newEpisode)
+		podcasts = append(podcasts, newPodcast)
+	}
 }
