@@ -35,7 +35,7 @@ episode:
     creator: "Author Name(s)"
 
     # XML tag: <pubDate>
-    release_date: " Wed, 15 Jun 2019 19:00:00 GMT"
+    release_date: "Wed, 15 Jun 2019 19:00:00 GMT"
 
     # XML tag: <itunes:explicit>
     itunes_explicit: "No"

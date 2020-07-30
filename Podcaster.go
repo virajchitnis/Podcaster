@@ -107,6 +107,7 @@ func buildPodcastListFrom(directory string) {
 		}
 		for _, episodeFile := range episodeFiles {
 			newEpisode := readEpisodeFromFile(episodeFile)
+			newEpisode.validatePubDate()
 			newEpisode.readMediaFileDetails(directory)
 			newPodcast.addEpisode(newEpisode)
 		}

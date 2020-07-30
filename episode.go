@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"gopkg.in/yaml.v2"
 )
@@ -50,6 +51,13 @@ func (e *Episode) readMediaFileDetails(basePath string) {
 	}
 	defer f.Close()
 	e.Enclosure.Type = getFileContentType(f)
+}
+
+func (e *Episode) validatePubDate() {
+	_, err := time.Parse(time.RFC1123, e.Date)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func getFileContentType(file *os.File) string {
