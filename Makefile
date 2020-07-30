@@ -31,4 +31,4 @@ docker: build-linux-amd64
 	docker build -t $(DOCKER_TAG) .
 
 run-docker: docker
-	docker run --rm -v "$(PWD)/examples/etc/podcaster":/etc/podcaster -p 8080:8080 --name $(DOCKER_CONTAINER_NAME) $(DOCKER_TAG)
+	docker run --rm -v "$(PWD)/examples/docker_config":/etc/podcaster -v "$(PWD)/examples/var/podcaster":/var/podcaster -p 8080:8080 --name $(DOCKER_CONTAINER_NAME) $(DOCKER_TAG)
