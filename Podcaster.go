@@ -55,7 +55,7 @@ func main() {
 			Version     string   `xml:"version,attr"`
 			PodcastData Podcast
 		}
-		r.GET("/"+podcast.shortName, func(c *gin.Context) {
+		r.GET("/"+podcast.shortName+"/feed.xml", func(c *gin.Context) {
 			c.XML(http.StatusOK, XMLRoot{
 				ItunesNS:    "http://www.itunes.com/dtds/podcast-1.0.dtd",
 				DCNS:        "http://purl.org/dc/elements/1.1/",
