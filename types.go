@@ -57,5 +57,5 @@ func (c *Category) addCategory(cat Category) {
 // ItunesImage type for storing album artwork details
 type ItunesImage struct {
 	XMLName xml.Name `xml:"itunes:image"`
-	Href    string   `xml:"href,attr"`
+	Href    string   `xml:"href,attr" yaml:"href"`
 }

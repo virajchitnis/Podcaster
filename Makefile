@@ -21,7 +21,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 run: build
-	./$(BINARY_NAME) -debug -config "examples/config.yaml"
+	./$(BINARY_NAME) -debug -config "examples/etc/podcaster/config.yaml"
 
 deps:
 	$(GOGET) github.com/gin-gonic/gin
@@ -31,4 +31,4 @@ docker: build-linux-amd64
 	docker build -t $(DOCKER_TAG) .
 
 run-docker: docker
-	docker run --rm -v "$(PWD)/examples/docker_config":/etc/podcaster -p 8080:8080 --name $(DOCKER_CONTAINER_NAME) $(DOCKER_TAG)
+	docker run --rm -v "$(PWD)/examples/etc/podcaster":/etc/podcaster -p 8080:8080 --name $(DOCKER_CONTAINER_NAME) $(DOCKER_TAG)

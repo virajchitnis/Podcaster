@@ -1,0 +1,86 @@
+# Example podcast configuration file.
+podcast:
+    #====================
+    # Required properties
+    #====================
+
+    # This is the name used for the URL eg. /{shortname}/feed.xml
+    shortname: "test"
+
+    # XML tag: <title>
+    title: "Test Podcast"
+
+    # XML tag: <decription>
+    description: "This is the description of the podcast."
+
+    # XML tag: <itunes:type>
+    itunes_type: "episodic"
+
+    # XML tag: <language>
+    language: "en"
+
+    # XML tag: <itunes:category>
+    # itunes_categories: ["History", "News"]
+
+    # XML tag: <itunes:explicit>
+    itunes_explicit: "No"
+
+    # XML tag: <image>
+    image:
+        # XML tag: <url>
+        url: "https://www.domain.tld/podcast/albumart.jpeg"
+        # XML tag: <title>
+        title: "Test Podcast"
+        # XML tag: <link>
+        link: "https://www.domain.tld/podcast"
+    
+    # XML tag: <itunes:image>
+    itunes_image:
+        href: "https://www.domain.tld/podcast/albumart.jpeg"
+    
+    # XML tag: <itunes:owner>
+    itunes_owner:
+        # XML tag: <itunes:name>
+        name: "Owner Name"
+        # XML tag: <itunes:email>
+        email: "adminemail@domain.tld"
+    
+    #====================
+    # Optional properties
+    #====================
+
+    # XML tag: <itunes:title>
+    itunes_title: "Test Podcast"
+
+    # XML tag: <itunes:summary>
+    itunes_summary: "This is the description of the podcast."
+
+    # XML tag: <author>
+    author: "Author Name(s)"
+
+    # XML tag: <itunes:author>
+    itunes_author: "Author Name(s)"
+
+    # XML tag: <category>
+    category: "History"
+
+    # XML tag: <managingEditor>
+    managing_editor: "Managing Editor Name(s)"
+
+    # XML tag: <webMaster>
+    webmaster: "Your Name"
+
+    # XML tag: <link>
+    link: "https://www.domain.tld/podcast"
+
+    # XML tag: <copyright>
+    copyright: "© 2020 Your Name. All Rights Reserved."
+
+    # XML tag: <itunes:new-feed-url>
+    new_feed_url: ""
+
+    # XML tag: <itunes:block>
+    itunes_block: ""
+
+    # XML tag: <itunes:complete>
+    itunes_complete: ""

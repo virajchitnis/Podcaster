@@ -59,7 +59,7 @@ func main() {
 			Version     string   `xml:"version,attr"`
 			PodcastData Podcast
 		}
-		r.GET("/"+podcast.shortName+"/feed.xml", func(c *gin.Context) {
+		r.GET("/"+podcast.ShortName+"/feed.xml", func(c *gin.Context) {
 			c.XML(http.StatusOK, XMLRoot{
 				ItunesNS:    "http://www.itunes.com/dtds/podcast-1.0.dtd",
 				DCNS:        "http://purl.org/dc/elements/1.1/",
@@ -72,6 +72,26 @@ func main() {
 	}
 
 	r.Run(config.Server.Host + ":" + config.Server.Port)
+}
+
+func readPodcastFromFile(filename string) Podcast {
+	f, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Unable to read file!")
+		exitWithError()
+	}
+	defer f.Close()
+
+	var podcastReader PodcastReader
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(&podcastReader)
+	if err != nil {
+		fmt.Println("Invalid file format!")
+		fmt.Print(err)
+		exitWithError()
+	}
+	podcastReader.Podcast.Generator = "https://github.com/virajchitnis/Podcaster"
+	return podcastReader.Podcast
 }
 
 func readConfigFile(config string) Config {
@@ -99,31 +119,8 @@ func exitWithError() {
 func buildPodcastList() {
 	currTime := time.Now()
 
-	newPodcast := Podcast{
-		shortName:      "test",
-		Copyright:      "© 2020 The Author. All Rights Reserved.",
-		Language:       "en",
-		Category:       "History",
-		ItunesType:     Episodic,
-		ItunesExplicit: No,
-		LastBuildDate:  currTime.Format(time.RFC1123),
-	}
-	newPodcast.setTitle("TEST")
-	newPodcast.setDescription("This is a test podcast")
-	newPodcast.setAuthor("The Author & The Second Author")
-	newPodcast.setImageURL("https://domain.com/image")
-	newPodcast.setLink("https://twitter.com/blah")
-	newPodcast.ItunesOwner.ItunesEmail = "blah@domain.com"
-	newPodcast.addCategory(Category{
-		Text: "History",
-	})
-	newsCategory := Category{
-		Text: "News",
-	}
-	newsCategory.addCategory(Category{
-		Text: "Politics",
-	})
-	newPodcast.addCategory(newsCategory)
+	newPodcast := readPodcastFromFile("examples/var/podcaster/example_podcast.yaml")
+	fmt.Println(newPodcast)
 
 	newEpisode := Episode{
 		GUID:              "hafuhgiahuha4r45",
