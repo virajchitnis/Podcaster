@@ -43,6 +43,10 @@ func main() {
 		})
 	})
 
+	r.GET("/health", func(c *gin.Context) {
+		c.String(http.StatusOK, "Up!")
+	})
+
 	buildPodcastList()
 
 	for _, podcast := range podcasts {
