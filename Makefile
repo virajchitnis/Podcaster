@@ -14,7 +14,8 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 run: build
-	./$(BINARY_NAME) -debug
+	./$(BINARY_NAME) -debug -config "example_config.yaml"
 
 deps:
 	$(GOGET) -u github.com/gin-gonic/gin
+	$(GOGET) -u gopkg.in/yaml.v2

@@ -5,9 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -18,11 +20,13 @@ const (
 )
 
 var debug = flag.Bool("debug", false, "Enable debug mode")
+var configFile = flag.String("config", "/etc/podcaster/config.yaml", "Configuration file")
 
 var podcasts []Podcast
 
 func main() {
 	flag.Parse()
+	config := readConfigFile(*configFile)
 
 	fmt.Println("")
 	fmt.Println("Welcome to Podcaster")
@@ -63,7 +67,29 @@ func main() {
 		})
 	}
 
-	r.Run()
+	r.Run(config.Server.Host + ":" + config.Server.Port)
+}
+
+func readConfigFile(config string) Config {
+	f, err := os.Open(config)
+	if err != nil {
+		fmt.Println("Unable to read config file!")
+		exitWithError()
+	}
+	defer f.Close()
+
+	var cfg Config
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(&cfg)
+	if err != nil {
+		fmt.Println("Invalid config file format!")
+		exitWithError()
+	}
+	return cfg
+}
+
+func exitWithError() {
+	os.Exit(1)
 }
 
 func buildPodcastList() {
