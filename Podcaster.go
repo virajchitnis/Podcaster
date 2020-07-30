@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -89,6 +90,7 @@ func visitFile(files *[]string) filepath.WalkFunc {
 }
 
 func buildPodcastListFrom(directory string) {
+	currTime := time.Now()
 	var podcastFiles []string
 	err := filepath.Walk(directory+"/podcasts", visitFile(&podcastFiles))
 	if err != nil {
@@ -96,6 +98,7 @@ func buildPodcastListFrom(directory string) {
 	}
 	for _, file := range podcastFiles {
 		newPodcast := readPodcastFromFile(file)
+		newPodcast.LastBuildDate = currTime.Format(time.RFC1123)
 
 		var episodeFiles []string
 		err := filepath.Walk(directory+"/episodes/"+newPodcast.ShortName, visitFile(&episodeFiles))

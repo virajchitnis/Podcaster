@@ -24,7 +24,7 @@ type Podcast struct {
 		Link    string   `xml:"link" yaml:"link"`
 	} `yaml:"image"`
 	ItunesImage      ItunesImage `yaml:"itunes_image"`
-	Generator        string      `xml:"generator,omitempty"`
+	Generator        string      `xml:"generator"`
 	LastBuildDate    string      `xml:"lastBuildDate"`
 	Author           string      `xml:"author" yaml:"author"`
 	ItunesAuthor     string      `xml:"itunes:author,omitempty" yaml:"itunes_author"`
