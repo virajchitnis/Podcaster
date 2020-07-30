@@ -11,7 +11,6 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -76,58 +75,25 @@ func main() {
 	r.Run(config.Server.Host + ":" + config.Server.Port)
 }
 
-func readPodcastFromFile(filename string) Podcast {
-	f, err := os.Open(filename)
-	if err != nil {
-		fmt.Println("Unable to read file!")
-		log.Fatal(err)
+func visitFile(files *[]string) filepath.WalkFunc {
+	return func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			log.Fatal(err)
+		}
+		if !info.IsDir() {
+			if filepath.Ext(path) == ".yaml" || filepath.Ext(path) == ".yml" {
+				*files = append(*files, path)
+			}
+		}
+		return nil
 	}
-	defer f.Close()
-
-	var podcastReader PodcastReader
-	decoder := yaml.NewDecoder(f)
-	err = decoder.Decode(&podcastReader)
-	if err != nil {
-		fmt.Println("Invalid file format!")
-		log.Fatal(err)
-	}
-	podcastReader.Podcast.Generator = "https://github.com/virajchitnis/Podcaster"
-	return podcastReader.Podcast
-}
-
-func readConfigFile(config string) Config {
-	f, err := os.Open(config)
-	if err != nil {
-		fmt.Println("Unable to read config file!")
-		log.Fatal(err)
-	}
-	defer f.Close()
-
-	var cfg Config
-	decoder := yaml.NewDecoder(f)
-	err = decoder.Decode(&cfg)
-	if err != nil {
-		fmt.Println("Invalid config file format!")
-		log.Fatal(err)
-	}
-	return cfg
 }
 
 func buildPodcastListFrom(directory string) {
 	currTime := time.Now()
 
 	var podcastFiles []string
-	err := filepath.Walk(directory+"/podcasts", func(path string, info os.FileInfo, err error) error {
-		if err == nil {
-			if !info.IsDir() {
-				if filepath.Ext(path) == ".yaml" || filepath.Ext(path) == ".yml" {
-					podcastFiles = append(podcastFiles, path)
-				}
-			}
-			return nil
-		}
-		return err
-	})
+	err := filepath.Walk(directory+"/podcasts", visitFile(&podcastFiles))
 	if err != nil {
 		log.Fatal(err)
 	}

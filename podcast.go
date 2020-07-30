@@ -1,6 +1,13 @@
 package main
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"fmt"
+	"log"
+	"os"
+
+	"gopkg.in/yaml.v2"
+)
 
 // Podcast type for holding the details of a podcast.
 type Podcast struct {
@@ -79,4 +86,23 @@ func (p *Podcast) addEpisode(episode Episode) {
 // PodcastReader type for reading podcast details from a yaml file
 type PodcastReader struct {
 	Podcast Podcast `yaml:"podcast"`
+}
+
+func readPodcastFromFile(filename string) Podcast {
+	f, err := os.Open(filename)
+	if err != nil {
+		fmt.Println("Unable to read file!")
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	var podcastReader PodcastReader
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(&podcastReader)
+	if err != nil {
+		fmt.Println("Invalid file format!")
+		log.Fatal(err)
+	}
+	podcastReader.Podcast.Generator = "https://github.com/virajchitnis/Podcaster"
+	return podcastReader.Podcast
 }
