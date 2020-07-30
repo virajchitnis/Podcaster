@@ -13,7 +13,7 @@ episode:
         # Episode audio/video file relative to the /var/podcaster directory.
         # Eg. if your file is stored at /var/podcaster/media/audio/example_podcast.s01e01.mp3
         # you would set the value as shown below.
-        file: "media/audio/example_podcast.s01e01.mp3"
+        file: "/media/audio/example_podcast.s01e01.mp3"
     
     #====================
     # Optional properties

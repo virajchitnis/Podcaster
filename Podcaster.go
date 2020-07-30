@@ -37,6 +37,7 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.Default()
+	r.Static("/media", config.Server.DataDirectory+"/media")
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -48,7 +49,7 @@ func main() {
 		c.String(http.StatusOK, "Up!")
 	})
 
-	buildPodcastListFrom(config.Server.DataDirectory)
+	buildPodcastListFrom(config.Server.DataDirectory, config.Server.WebsiteRoot)
 
 	for _, podcast := range podcasts {
 		type XMLRoot struct {
@@ -89,7 +90,7 @@ func visitFile(files *[]string) filepath.WalkFunc {
 	}
 }
 
-func buildPodcastListFrom(directory string) {
+func buildPodcastListFrom(directory string, websiteRoot string) {
 	currTime := time.Now()
 	var podcastFiles []string
 	err := filepath.Walk(directory+"/podcasts", visitFile(&podcastFiles))
@@ -109,6 +110,7 @@ func buildPodcastListFrom(directory string) {
 			newEpisode := readEpisodeFromFile(episodeFile)
 			newEpisode.validatePubDate()
 			newEpisode.readMediaFileDetails(directory)
+			newEpisode.buildFileURL(websiteRoot)
 			newPodcast.addEpisode(newEpisode)
 		}
 

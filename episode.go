@@ -60,6 +60,10 @@ func (e *Episode) validatePubDate() {
 	}
 }
 
+func (e *Episode) buildFileURL(websiteRoot string) {
+	e.Enclosure.URL = websiteRoot + e.Enclosure.File
+}
+
 func getFileContentType(file *os.File) string {
 	buffer := make([]byte, 512)
 	_, err := file.Read(buffer)
