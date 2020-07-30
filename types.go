@@ -45,9 +45,9 @@ const (
 
 // Category type for storing podcast categories
 type Category struct {
-	XMLName          xml.Name `xml:"itunes:category"`
-	Text             string   `xml:"text,attr"`
-	ItunesCategories []Category
+	XMLName          xml.Name   `xml:"itunes:category"`
+	Text             string     `xml:"text,attr" yaml:"text"`
+	ItunesCategories []Category `yaml:"itunes_categories"`
 }
 
 func (c *Category) addCategory(cat Category) {

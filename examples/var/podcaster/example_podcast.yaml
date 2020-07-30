@@ -1,4 +1,5 @@
 # Example podcast configuration file.
+# Refer to https://help.apple.com/itc/podcasts_connect/#/itcb54353390 for understanding what each XML tag means.
 podcast:
     #====================
     # Required properties
@@ -20,7 +21,12 @@ podcast:
     language: "en"
 
     # XML tag: <itunes:category>
-    # itunes_categories: ["History", "News"]
+    itunes_categories:
+        - text: "History"
+        -
+            text: "News"
+            itunes_categories:
+                - text: "Politics"
 
     # XML tag: <itunes:explicit>
     itunes_explicit: "No"

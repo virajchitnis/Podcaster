@@ -120,7 +120,6 @@ func buildPodcastList() {
 	currTime := time.Now()
 
 	newPodcast := readPodcastFromFile("examples/var/podcaster/example_podcast.yaml")
-	fmt.Println(newPodcast)
 
 	newEpisode := Episode{
 		GUID:              "hafuhgiahuha4r45",
