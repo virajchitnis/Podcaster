@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -30,7 +29,7 @@ func main() {
 	config := readConfigFile(*configFile)
 
 	fmt.Println("")
-	fmt.Println("Welcome to Podcaster")
+	fmt.Println("Welcome to Podcaster v2.0")
 	fmt.Println("")
 
 	if *debug != true {
@@ -90,8 +89,6 @@ func visitFile(files *[]string) filepath.WalkFunc {
 }
 
 func buildPodcastListFrom(directory string) {
-	currTime := time.Now()
-
 	var podcastFiles []string
 	err := filepath.Walk(directory+"/podcasts", visitFile(&podcastFiles))
 	if err != nil {
@@ -100,20 +97,17 @@ func buildPodcastListFrom(directory string) {
 	for _, file := range podcastFiles {
 		newPodcast := readPodcastFromFile(file)
 
-		newEpisode := Episode{
-			GUID:              "hafuhgiahuha4r45",
-			Creator:           "The Author & The Second Author",
-			Date:              currTime.Format(time.RFC1123),
-			ItunesExplicit:    No,
-			ItunesEpisodeType: Full,
-			ItunesDuration:    3256,
+		var episodeFiles []string
+		err := filepath.Walk(directory+"/episodes/"+newPodcast.ShortName, visitFile(&episodeFiles))
+		if err != nil {
+			log.Fatal(err)
 		}
-		newEpisode.setTitle("Episode 1")
-		newEpisode.setDescription("This is the first episode test.")
-		newEpisode.Enclosure.URL = "https://www.domain.com/somefile.mp3"
-		newEpisode.Enclosure.Size = 554543
-		newEpisode.Enclosure.Type = MPEG
-		newPodcast.addEpisode(newEpisode)
+		for _, episodeFile := range episodeFiles {
+			newEpisode := readEpisodeFromFile(episodeFile)
+			newEpisode.readMediaFileDetails(directory)
+			newPodcast.addEpisode(newEpisode)
+		}
+
 		podcasts = append(podcasts, newPodcast)
 	}
 }

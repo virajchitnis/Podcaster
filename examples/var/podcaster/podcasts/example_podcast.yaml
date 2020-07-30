@@ -6,7 +6,7 @@ podcast:
     #====================
 
     # This is the name used for the URL eg. /{shortname}/feed.xml
-    shortname: "test"
+    shortname: "example_podcast"
 
     # XML tag: <title>
     title: "Test Podcast"

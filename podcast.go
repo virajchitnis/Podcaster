@@ -48,37 +48,6 @@ type Podcast struct {
 	ItunesComplete   YesNoType `xml:"itunes:complete,omitempty" yaml:"itunes_complete"`
 }
 
-func (p *Podcast) setTitle(title string) {
-	p.Title = title
-	p.Image.Title = title
-	p.ItunesTitle = title
-}
-
-func (p *Podcast) setDescription(desc string) {
-	p.Description = desc
-	p.ItunesSummary = desc
-}
-
-func (p *Podcast) setLink(link string) {
-	p.Link = link
-	p.Image.Link = link
-}
-
-func (p *Podcast) setImageURL(URL string) {
-	p.Image.URL = URL
-	p.ItunesImage.Href = URL
-}
-
-func (p *Podcast) setAuthor(author string) {
-	p.Author = author
-	p.ItunesAuthor = author
-	p.ItunesOwner.ItunesName = author
-}
-
-func (p *Podcast) addCategory(cat Category) {
-	p.ItunesCategories = append(p.ItunesCategories, cat)
-}
-
 func (p *Podcast) addEpisode(episode Episode) {
 	p.Items = append(p.Items, episode)
 }

@@ -30,28 +30,11 @@ const (
 	No  YesNoType = "No"
 )
 
-// FileType type for defining valid file types.
-type FileType string
-
-// Valid types for FileType
-const (
-	M4A       FileType = "audio/x-m4a"
-	MPEG      FileType = "audio/mpeg"
-	QuickTime FileType = "video/quicktime"
-	MP4       FileType = "video/mp4"
-	M4V       FileType = "video/x-m4v"
-	PDF       FileType = "application/pdf"
-)
-
 // Category type for storing podcast categories
 type Category struct {
 	XMLName          xml.Name   `xml:"itunes:category"`
 	Text             string     `xml:"text,attr" yaml:"text"`
 	ItunesCategories []Category `yaml:"itunes_categories"`
-}
-
-func (c *Category) addCategory(cat Category) {
-	c.ItunesCategories = append(c.ItunesCategories, cat)
 }
 
 // ItunesImage type for storing album artwork details

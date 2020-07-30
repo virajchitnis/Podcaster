@@ -1,0 +1,61 @@
+# Example episode configuration file
+# Refer to https://help.apple.com/itc/podcasts_connect/#/itcb54353390 for understanding what each XML tag means.
+episode:
+    #====================
+    # Required properties
+    #====================
+    
+    # XML tag: <title>
+    title: "Episode 1"
+
+    # XML tag: <enclosure>
+    enclosure:
+        # Episode audio/video file relative to the /var/podcaster directory.
+        # Eg. if your file is stored at /var/podcaster/media/audio/example_podcast.s01e01.mp3
+        # you would set the value as shown below.
+        file: "media/audio/example_podcast.s01e01.mp3"
+    
+    #====================
+    # Optional properties
+    #====================
+
+    # XML tag: <itunes:title>
+    itunes_title: "Episode 1"
+
+    # XML tag: <description>
+    description: "In this podcast we discuss the creation of this software."
+
+    # XML tag: <itunes:summary>
+    itunes_summary: "In this podcast we discuss the creation of this software."
+
+    # XML tag: <guid>
+    guid: "A globally unique string"
+
+    # XML tag: <cd:creator>
+    creator: "Author Name(s)"
+
+    # XML tag: <pubDate>
+    release_date: " Wed, 15 Jun 2019 19:00:00 GMT"
+
+    # XML tag: <itunes:explicit>
+    itunes_explicit: "No"
+    
+    # XML tag: <itunes:season>
+    season: 1
+
+    # XML tag: <itunes:episode>
+    episode: 1
+
+    # XML tag: <itunes:episodeType>
+    episode_type: "full"
+
+    # XML tag: <link>
+    link: "https://www.domain.tld/podcast/s01e01"
+
+    # XML tag: <itunes:block>
+    itunes_block: "No"
+
+    # XML tag: <itunes:image>
+    itunes_image:
+        -
+            href: "https://www.domain.tld/podcast/s01e01/albumart.jpeg"
