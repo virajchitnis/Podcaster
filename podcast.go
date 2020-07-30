@@ -12,7 +12,7 @@ import (
 // Podcast type for holding the details of a podcast.
 type Podcast struct {
 	XMLName     xml.Name `xml:"channel"`
-	ShortName   string   `yaml:"shortname"`
+	ShortName   string   `xml:"-" yaml:"shortname"`
 	Title       string   `xml:"title" yaml:"title"`
 	ItunesTitle string   `xml:"itunes:title,omitempty" yaml:"itunes_title"`
 	Description string   `xml:"description" yaml:"description"`

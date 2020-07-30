@@ -23,7 +23,7 @@ type Episode struct {
 		URL     string   `xml:"url,attr"`
 		Size    int64    `xml:"length,attr"`
 		Type    string   `xml:"type,attr"`
-		File    string   `xml:"file,omitempty" yaml:"file"`
+		File    string   `xml:"-" yaml:"file"`
 	} `yaml:"enclosure"`
 	Date              string        `xml:"pubDate,omitempty" yaml:"release_date"`
 	ItunesSummary     string        `xml:"itunes:summary,omitempty" yaml:"itunes_summary"`
@@ -50,8 +50,6 @@ func (e *Episode) readMediaFileDetails(basePath string) {
 	}
 	defer f.Close()
 	e.Enclosure.Type = getFileContentType(f)
-
-	e.Enclosure.File = ""
 }
 
 func getFileContentType(file *os.File) string {
