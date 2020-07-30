@@ -1,8 +1,9 @@
-GOCMD=go
-GOBUILD=$(GOCMD) build
+CGO=CGO_ENABLED=0
+GOCMD=$(CGO) go
+GOBUILD=$(GOCMD) build -ldflags '-s'
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
-GOGET=$(GOCMD) get
+GOGET=$(GOCMD) get -u -a -ldflags '-s'
 BUILD_DIR=bin
 BINARY_NAME=$(BUILD_DIR)/Podcaster
 
@@ -17,5 +18,5 @@ run: build
 	./$(BINARY_NAME) -debug -config "example_config.yaml"
 
 deps:
-	$(GOGET) -u github.com/gin-gonic/gin
-	$(GOGET) -u gopkg.in/yaml.v2
+	$(GOGET) github.com/gin-gonic/gin
+	$(GOGET) gopkg.in/yaml.v2
