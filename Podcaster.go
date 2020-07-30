@@ -49,7 +49,7 @@ func main() {
 		c.String(http.StatusOK, "Up!")
 	})
 
-	buildPodcastList()
+	buildPodcastListFrom(config.Server.DataDirectory)
 
 	for _, podcast := range podcasts {
 		type XMLRoot struct {
@@ -113,11 +113,11 @@ func readConfigFile(config string) Config {
 	return cfg
 }
 
-func buildPodcastList() {
+func buildPodcastListFrom(directory string) {
 	currTime := time.Now()
 
 	var podcastFiles []string
-	err := filepath.Walk("examples/var/podcaster/podcasts", func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(directory+"/podcasts", func(path string, info os.FileInfo, err error) error {
 		if err == nil {
 			if !info.IsDir() {
 				if filepath.Ext(path) == ".yaml" || filepath.Ext(path) == ".yml" {

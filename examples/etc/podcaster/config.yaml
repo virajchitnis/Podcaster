@@ -2,3 +2,5 @@
 server:
     host: ""
     port: 8080
+    website_root: "http://www.domain.com"
+    data_directory: "examples/var/podcaster"
