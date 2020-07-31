@@ -41,7 +41,7 @@ func main() {
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Welcome to Podcaster!",
+			"message": "Welcome to Podcaster v2.0",
 		})
 	})
 
