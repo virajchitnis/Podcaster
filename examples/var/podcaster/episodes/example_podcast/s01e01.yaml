@@ -58,4 +58,4 @@ episode:
     # XML tag: <itunes:image>
     itunes_image:
         -
-            href: "https://www.domain.tld/podcast/s01e01/albumart.jpeg"
+            href: "/media/images/example_podcast.jpeg"

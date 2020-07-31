@@ -38,21 +38,6 @@ type Episode struct {
 	ItunesBlock       YesNoType     `xml:"itunes:block,omitempty" yaml:"itunes_block"`
 }
 
-func (e *Episode) readMediaFileDetails(basePath string) {
-	mediaFileInfo, err := os.Lstat(basePath + "/" + e.Enclosure.File)
-	if err != nil {
-		log.Fatal(err)
-	}
-	e.Enclosure.Size = mediaFileInfo.Size()
-
-	f, err := os.Open(basePath + "/" + e.Enclosure.File)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer f.Close()
-	e.Enclosure.Type = getFileContentType(f)
-}
-
 func (e *Episode) validatePubDate() {
 	_, err := time.Parse(time.RFC1123, e.Date)
 	if err != nil {
@@ -60,8 +45,20 @@ func (e *Episode) validatePubDate() {
 	}
 }
 
-func (e *Episode) buildFileURL(websiteRoot string) {
+func (e *Episode) buildFileURL(websiteRoot string, basePath string) {
+	mediaFileInfo, err := os.Lstat(basePath + "/" + e.Enclosure.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+	e.Enclosure.Size = mediaFileInfo.Size()
 	e.Enclosure.URL = websiteRoot + e.Enclosure.File
+
+	f, err := os.Open(basePath + "/" + e.Enclosure.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	e.Enclosure.Type = getFileContentType(f)
 }
 
 func getFileContentType(file *os.File) string {

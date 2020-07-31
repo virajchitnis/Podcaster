@@ -30,19 +30,10 @@ podcast:
 
     # XML tag: <itunes:explicit>
     itunes_explicit: "No"
-
-    # XML tag: <image>
-    image:
-        # XML tag: <url>
-        url: "https://www.domain.tld/podcast/albumart.jpeg"
-        # XML tag: <title>
-        title: "Test Podcast"
-        # XML tag: <link>
-        link: "https://www.domain.tld/podcast"
     
     # XML tag: <itunes:image>
     itunes_image:
-        href: "https://www.domain.tld/podcast/albumart.jpeg"
+        href: "/media/images/example_podcast.jpg"
     
     # XML tag: <itunes:owner>
     itunes_owner:

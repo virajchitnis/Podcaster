@@ -19,10 +19,10 @@ type Podcast struct {
 	Link        string   `xml:"link,omitempty" yaml:"link"`
 	Image       struct {
 		XMLName xml.Name `xml:"image"`
-		URL     string   `xml:"url" yaml:"url"`
-		Title   string   `xml:"title" yaml:"title"`
-		Link    string   `xml:"link" yaml:"link"`
-	} `yaml:"image"`
+		URL     string   `xml:"url"`
+		Title   string   `xml:"title"`
+		Link    string   `xml:"link"`
+	}
 	ItunesImage      ItunesImage `yaml:"itunes_image"`
 	Generator        string      `xml:"generator"`
 	LastBuildDate    string      `xml:"lastBuildDate"`
@@ -52,12 +52,23 @@ func (p *Podcast) addEpisode(episode Episode) {
 	p.Items = append(p.Items, episode)
 }
 
+func (p *Podcast) buildAlbumArtURL(websiteRoot string, basePath string) {
+	_, err := os.Lstat(basePath + "/" + p.ItunesImage.Href)
+	if err != nil {
+		log.Fatal(err)
+	}
+	p.ItunesImage.Href = websiteRoot + p.ItunesImage.Href
+	p.Image.URL = p.ItunesImage.Href
+	p.Image.Title = p.Title
+	p.Image.Link = p.Link
+}
+
 // PodcastReader type for reading podcast details from a yaml file
 type PodcastReader struct {
 	Podcast Podcast `yaml:"podcast"`
 }
 
-func readPodcastFromFile(filename string) Podcast {
+func readPodcastFromFile(filename string, websiteRoot string, basePath string) Podcast {
 	f, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Unable to read file!")
@@ -73,5 +84,6 @@ func readPodcastFromFile(filename string) Podcast {
 		log.Fatal(err)
 	}
 	podcastReader.Podcast.Generator = "https://github.com/virajchitnis/Podcaster"
+	podcastReader.Podcast.buildAlbumArtURL(websiteRoot, basePath)
 	return podcastReader.Podcast
 }

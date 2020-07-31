@@ -98,7 +98,7 @@ func buildPodcastListFrom(directory string, websiteRoot string) {
 		log.Fatal(err)
 	}
 	for _, file := range podcastFiles {
-		newPodcast := readPodcastFromFile(file)
+		newPodcast := readPodcastFromFile(file, websiteRoot, directory)
 		newPodcast.LastBuildDate = currTime.Format(time.RFC1123)
 
 		var episodeFiles []string
@@ -109,8 +109,7 @@ func buildPodcastListFrom(directory string, websiteRoot string) {
 		for _, episodeFile := range episodeFiles {
 			newEpisode := readEpisodeFromFile(episodeFile)
 			newEpisode.validatePubDate()
-			newEpisode.readMediaFileDetails(directory)
-			newEpisode.buildFileURL(websiteRoot)
+			newEpisode.buildFileURL(websiteRoot, directory)
 			newPodcast.addEpisode(newEpisode)
 		}
 
